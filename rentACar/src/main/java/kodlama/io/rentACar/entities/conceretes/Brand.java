@@ -12,7 +12,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-@Table(name="brands")
+@Table(name = "brands")
 @Getter
 @Setter
 @AllArgsConstructor
@@ -21,9 +21,9 @@ import lombok.Setter;
 public class Brand {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name="id")
+	@Column(name = "id")
 	private int id;
-	
-	@Column(name="name")
+
+	@Column(name = "name")
 	private String name;
 }
