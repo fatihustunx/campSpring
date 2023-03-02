@@ -17,6 +17,3 @@ public class RentACarApplication {
 		return new ModelMapper();
 	}
 }
-
-//Brand-->Mark
-//Car-->Arab
