@@ -7,7 +7,9 @@ import org.springframework.stereotype.Service;
 
 import kodlama.io.rentACar.business.abstracts.ModelService;
 import kodlama.io.rentACar.business.requests.CreateModelRequest;
+import kodlama.io.rentACar.business.requests.UpdateModelRequest;
 import kodlama.io.rentACar.business.responses.GetAllModelsResponse;
+import kodlama.io.rentACar.business.responses.GetByIdModelResponse;
 import kodlama.io.rentACar.core.utilities.mappers.ModelMapperService;
 import kodlama.io.rentACar.dataAccess.abstracts.ModelRepository;
 import kodlama.io.rentACar.entities.conceretes.Model;
@@ -33,11 +35,36 @@ public class ModelManager implements ModelService {
 	}
 
 	@Override
+	public GetByIdModelResponse getById(int id) {
+
+		Model model = this.modelRepository.findById(id).orElseThrow();
+
+		GetByIdModelResponse modelResponse = this.modelMapperService.forResponse().map(model,
+				GetByIdModelResponse.class);
+
+		return modelResponse;
+	}
+
+	@Override
 	public void add(CreateModelRequest createModelRequest) {
 
 		Model model = this.modelMapperService.forRequest().map(createModelRequest, Model.class);
 
 		this.modelRepository.save(model);
+	}
+
+	@Override
+	public void update(UpdateModelRequest updateModelRequest) {
+
+		Model model = this.modelMapperService.forRequest().map(updateModelRequest, Model.class);
+
+		this.modelRepository.save(model);
+	}
+
+	@Override
+	public void delete(int id) {
+
+		this.modelRepository.deleteById(id);
 	}
 
 }
