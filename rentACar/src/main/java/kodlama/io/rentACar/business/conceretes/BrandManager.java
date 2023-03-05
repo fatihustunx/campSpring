@@ -63,6 +63,8 @@ public class BrandManager implements BrandService {
 	@Override
 	public void update(UpdateBrandRequest updateBrandRequest) {
 
+		this.brandBusinessRules.checkIfBrandNameExists(updateBrandRequest.getName());
+
 		Brand brand = this.modelMapperService.forRequest().map(updateBrandRequest, Brand.class);
 
 		this.brandRepository.save(brand);

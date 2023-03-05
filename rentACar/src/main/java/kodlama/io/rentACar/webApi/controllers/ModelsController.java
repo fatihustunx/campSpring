@@ -2,6 +2,8 @@ package kodlama.io.rentACar.webApi.controllers;
 
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -23,7 +25,7 @@ import lombok.AllArgsConstructor;
 @RestController
 @RequestMapping("/api/models")
 @AllArgsConstructor
-public class ModelController {
+public class ModelsController {
 
 	private ModelService modelService;
 
@@ -39,12 +41,12 @@ public class ModelController {
 
 	@PostMapping
 	@ResponseStatus(code = HttpStatus.CREATED)
-	public void add(@RequestBody CreateModelRequest createModelRequest) {
+	public void add(@RequestBody @Valid CreateModelRequest createModelRequest) {
 		this.modelService.add(createModelRequest);
 	}
 
 	@PutMapping
-	public void update(@RequestBody UpdateModelRequest updateModelRequest) {
+	public void update(@RequestBody @Valid UpdateModelRequest updateModelRequest) {
 		this.modelService.update(updateModelRequest);
 	}
 

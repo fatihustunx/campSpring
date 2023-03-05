@@ -60,6 +60,8 @@ public class ModelManager implements ModelService {
 	@Override
 	public void update(UpdateModelRequest updateModelRequest) {
 
+		this.modelBusinessRules.checkIfModelNameExists(updateModelRequest.getName());
+
 		Model model = this.modelMapperService.forRequest().map(updateModelRequest, Model.class);
 
 		this.modelRepository.save(model);
