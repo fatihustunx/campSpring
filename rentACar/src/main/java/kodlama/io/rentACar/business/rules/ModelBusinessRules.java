@@ -17,8 +17,15 @@ public class ModelBusinessRules {
 			throw new BusinessException("Model name already exists");
 
 			// Check for a single brand !!
+			// Check related request !
 
 			// Java exception types !
+		}
+	}
+
+	public void checkIfModelNameExists(int id, String name) {
+		if (this.modelRepository.existsByBrandIdAndName(id, name)) {
+			throw new BusinessException("Model name already exists !");
 		}
 	}
 }
