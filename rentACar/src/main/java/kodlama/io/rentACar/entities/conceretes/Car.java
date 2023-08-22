@@ -10,6 +10,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import kodlama.io.rentACar.entities.conceretes.enums.State;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 import lombok.Getter;
@@ -40,7 +41,7 @@ public class Car {
 	private double dailyPrice;
 
 	@Column(name = "state")
-	private int state; // 1-Available, 2-Rented, 3-Maintenance..
+	private State state;
 
 	@ManyToOne
 	@JoinColumn(name = "model_id")
