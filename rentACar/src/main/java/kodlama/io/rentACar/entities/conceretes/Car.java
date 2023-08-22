@@ -7,6 +7,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import lombok.AllArgsConstructor;
@@ -29,11 +30,14 @@ public class Car {
 	@Column(name = "plate", unique = true)
 	private String plate;
 
-	@Column(name = "dailyPrice")
-	private double dailyPrice;
-
+	@OneToOne
+	private Color color;
+	
 	@Column(name = "modelYear")
 	private int modelYear;
+	
+	@Column(name = "dailyPrice")
+	private double dailyPrice;
 
 	@Column(name = "state")
 	private int state; // 1-Available, 2-Rented, 3-Maintenance..
