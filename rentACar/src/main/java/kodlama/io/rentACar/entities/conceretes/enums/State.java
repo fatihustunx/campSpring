@@ -2,7 +2,7 @@ package kodlama.io.rentACar.entities.conceretes.enums;
 
 public enum State {
 
-	AVAILIBLE("availible"), MAINTINENCE("maintinence") ,RENTED("rented");
+	AVAILIBLE("availible"), MAINTENANCE("maintenance") ,RENTED("rented");
 	
 	private String state;
 	
