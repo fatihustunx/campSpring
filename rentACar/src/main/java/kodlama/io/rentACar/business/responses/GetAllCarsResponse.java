@@ -14,6 +14,7 @@ public class GetAllCarsResponse {
 	private String colorName;
 	private int modelYear;
 	private double dailyPrice;
+	private String modelBrandName;
 	private String modelName;
 	private String state;
 }

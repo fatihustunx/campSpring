@@ -1,6 +1,7 @@
 package kodlama.io.rentACar.business.conceretes;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Service;
@@ -26,8 +27,11 @@ public class CarManager implements CarService {
 	CarBusinessRules carBusinessRules;
 
 	@Override
-	public List<GetAllCarsResponse> getAll() {
-		List<Car> cars = carRepository.findAll();
+	public List<GetAllCarsResponse> getAll(Optional<Integer> brandId, Optional<Integer> modelId,
+			Optional<Integer> colorId) {
+
+		List<Car> cars = carBusinessRules.checkGetAllParams(brandId, modelId, colorId);
+
 		List<GetAllCarsResponse> carsResponse = cars.stream()
 				.map(car -> modelMapperService.forResponse().map(car, GetAllCarsResponse.class))
 				.collect(Collectors.toList());
@@ -45,7 +49,7 @@ public class CarManager implements CarService {
 
 	@Override
 	public void add(CreateCarRequest createCarRequest) {
-		
+
 		State temp = carBusinessRules.checkState(createCarRequest.getState());
 
 		Car car = modelMapperService.forRequest().map(createCarRequest, Car.class);
@@ -57,7 +61,7 @@ public class CarManager implements CarService {
 
 	@Override
 	public void update(UpdateCarRequest updateCarRequest) {
-		
+
 		State temp = carBusinessRules.checkState(updateCarRequest.getState());
 
 		Car car = modelMapperService.forRequest().map(updateCarRequest, Car.class);
@@ -71,5 +75,4 @@ public class CarManager implements CarService {
 	public void delete(int id) {
 		this.carRepository.deleteById(id);
 	}
-
 }

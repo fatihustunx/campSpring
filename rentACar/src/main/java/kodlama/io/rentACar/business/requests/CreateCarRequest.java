@@ -1,5 +1,8 @@
 package kodlama.io.rentACar.business.requests;
 
+import javax.validation.constraints.DecimalMin;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
@@ -19,8 +22,10 @@ public class CreateCarRequest {
 	@NotBlank
 	private String plate;
 	
+	@Min(1923)@Max(2024)
 	private int modelYear;
 	
+	@DecimalMin(value = "0.0",inclusive = false)
 	private double dailyPrice;
 	
 	@NotNull
@@ -29,5 +34,4 @@ public class CreateCarRequest {
 	@NotNull
 	@NotBlank
 	private String state;
-	
 }
