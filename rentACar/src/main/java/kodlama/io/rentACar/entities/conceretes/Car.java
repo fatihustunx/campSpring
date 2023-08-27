@@ -1,5 +1,7 @@
 package kodlama.io.rentACar.entities.conceretes;
 
+import java.util.List;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -9,6 +11,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import kodlama.io.rentACar.entities.conceretes.enums.State;
@@ -33,20 +36,23 @@ public class Car {
 	private String plate;
 
 	@ManyToOne
-	@JoinColumn(name="color_id")
+	@JoinColumn(name = "color_id")
 	private Color color;
-	
+
 	@Column(name = "modelYear")
 	private int modelYear;
-	
+
 	@Column(name = "dailyPrice")
 	private double dailyPrice;
 
 	@ManyToOne
 	@JoinColumn(name = "model_id")
 	private Model model;
-	
+
 	@Enumerated(EnumType.STRING)
 	@Column(name = "state")
 	private State state;
+
+	@OneToMany(mappedBy = "car")
+	private List<Rental> rentals;
 }
