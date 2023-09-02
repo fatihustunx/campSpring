@@ -5,11 +5,13 @@ import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Service;
 
+import kodlama.io.rentACar.business.abstracts.CarService;
 import kodlama.io.rentACar.business.abstracts.RentalService;
 import kodlama.io.rentACar.business.requests.CreateRentalRequest;
 import kodlama.io.rentACar.business.requests.UpdateRentalRequest;
 import kodlama.io.rentACar.business.responses.GetAllRentalsResponse;
 import kodlama.io.rentACar.business.responses.GetByIdRentalResponse;
+import kodlama.io.rentACar.business.rules.RentalBusinessRules;
 import kodlama.io.rentACar.core.utilities.mappers.ModelMapperService;
 import kodlama.io.rentACar.dataAccess.abstracts.RentalRepository;
 import kodlama.io.rentACar.entities.conceretes.Rental;
@@ -19,8 +21,10 @@ import lombok.AllArgsConstructor;
 @AllArgsConstructor
 public class RentalManager implements RentalService {
 
+	private CarService carService;
 	private RentalRepository rentalRepository;
 	private ModelMapperService modelMapperService;
+	private RentalBusinessRules rentalBusinessRules;
 
 	@Override
 	public List<GetAllRentalsResponse> getAll() {
@@ -43,10 +47,17 @@ public class RentalManager implements RentalService {
 
 	@Override
 	public void add(CreateRentalRequest createRentalRequest) {
+		this.rentalBusinessRules.checkCarIsAvailible(carService.getById(createRentalRequest.getCarId()).getState());
+
 		Rental rental = modelMapperService.forRequest().map(createRentalRequest, Rental.class);
 
-		rentalRepository.save(rental);
+		rental.setRentDay(rentalBusinessRules.returnRentDay(createRentalRequest.getRentDate(),
+				createRentalRequest.getReturnDate()));
 
+		rental.setTotalCost(rentalBusinessRules.returnTotalCost(
+				carService.getById(createRentalRequest.getCarId()).getDailyPrice(), rental.getRentDay()));
+
+		rentalRepository.save(rental);
 	}
 
 	@Override

@@ -38,6 +38,7 @@ public class Rental {
 	private User user;
 
 	@Column(name = "rentDate")
+	@JsonFormat(pattern = "dd/MM/yyyy")
 	Date rentDate;
 
 	@Column(name = "returnDate")
@@ -45,6 +46,8 @@ public class Rental {
 	Date returnDate;
 
 	@Column(name = "totalCost")
-	@JsonFormat(pattern = "dd/MM/yyyy")
-	int totalCost;
+	double totalCost;
+
+	@Column(name = "rentDay")
+	int rentDay;
 }

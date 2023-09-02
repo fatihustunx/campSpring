@@ -14,23 +14,27 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class UpdateCarRequest {
-	
+
+	@NotNull
+	private int id;
+
 	@NotNull
 	private int colorId;
-	
+
 	@NotNull
 	@NotBlank
 	private String plate;
-	
-	@Min(1923)@Max(2024)
+
+	@Min(1923)
+	@Max(2024)
 	private int modelYear;
-	
-	@DecimalMin(value = "0.0",inclusive = false)
+
+	@DecimalMin(value = "0.0", inclusive = false)
 	private double dailyPrice;
-	
+
 	@NotNull
 	private int modelId;
-	
+
 	@NotNull
 	@NotBlank
 	private String state;

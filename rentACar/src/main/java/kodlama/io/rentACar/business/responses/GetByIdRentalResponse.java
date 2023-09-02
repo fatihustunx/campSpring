@@ -24,5 +24,7 @@ public class GetByIdRentalResponse {
 	@JsonFormat(pattern = "dd/MM/yyyy")
 	private Date returnDate;
 
-	private int totalCost;
+	private double totalCost;
+
+	private int rentDay;
 }
